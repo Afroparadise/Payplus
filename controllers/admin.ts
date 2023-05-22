@@ -7,6 +7,7 @@ import { segusuario } from "../dto/users/users";
 import jwt, { Secret, VerifyOptions } from 'jsonwebtoken';
 import { DataTypes } from "sequelize";
 import segrolxusuario from "../models/users/segrolxusuario";
+import segrol from "../models/users/segrol";
 
 const verificar = function (token:string) {
     return new Promise((resolve, reject) => {
@@ -30,43 +31,34 @@ export const login = async (req: Request, res: Response)=>{
           where:{
             UsuarioLogin:username,
             UsuarioPassword:md5(password)
-          }
+          },
+          include:[{all:true}]
         }) 
-        let Rols = ""
-        // user?.Rols.map(rol => {
-        //   Rols += rol.RolNombre
-        // })
-        // let userByRol = await segrolxusuario.findAll();
-        let newUser = {
-          ...user
+        if(user){
+          let userByRol = await segrolxusuario.findAll();
+          let Rols = ""
+          user?.dataValues.Rols.map((rol: any) => {
+            Rols += rol.dataValues.RolNombre
+          })
+          let newUser = {
+            ...user?.dataValues,
+            Rols
+          }
+          let token = await GenJWT({...newUser})
+          res.json({
+              ok:true,
+              message:"User logged sucessfull",
+              data:{
+                  user,
+                  token
+              }
+          })
+        }else{
+          res.status(400).json({
+            ok:false,
+            message:"Usuario o contraseña inválido"
+          })
         }
-        let token = await GenJWT({...user})
-        
-        // if(user?.UsuarioPassword == password){
-        //     let token = "Token de Prueba"
-        //     res.json({
-        //         ok:true,
-        //         message:'Logged',
-        //         data:{
-        //             token,
-        //             user,
-        //         }
-        //     })
-        // }else{
-        //     res.status(400).json({
-        //         ok:false,
-        //         message:"Contraseña inválida",
-        //         error:"Contraseña inválida"
-        //     })
-        // }
-        res.json({
-            ok:true,
-            message:"User logged sucessfull",
-            data:{
-                user,
-                token
-            }
-        })
     }catch(ex){
         res.status(400).json({
             ok:false,
