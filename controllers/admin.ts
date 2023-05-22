@@ -1,9 +1,12 @@
 import { Request, Response } from "express";
+import md5 from 'md5'
 import db from "../db/connections";
 import Users from "../models/users/segusuario"
 import {GenJWT} from "../helpers/jwt"
 import { segusuario } from "../dto/users/users";
 import jwt, { Secret, VerifyOptions } from 'jsonwebtoken';
+import { DataTypes } from "sequelize";
+import segrolxusuario from "../models/users/segrolxusuario";
 
 const verificar = function (token:string) {
     return new Promise((resolve, reject) => {
@@ -23,10 +26,22 @@ export const login = async (req: Request, res: Response)=>{
     try{
         const {body} = req;
         const {username,password} = body;
-        let user = await Users.findOne({where:{
-            UsuarioLogin:username
-        }})
+        let user = await Users.findOne({
+          where:{
+            UsuarioLogin:username,
+            UsuarioPassword:md5(password)
+          }
+        }) 
+        let Rols = ""
+        // user?.Rols.map(rol => {
+        //   Rols += rol.RolNombre
+        // })
+        // let userByRol = await segrolxusuario.findAll();
+        let newUser = {
+          ...user
+        }
         let token = await GenJWT({...user})
+        
         // if(user?.UsuarioPassword == password){
         //     let token = "Token de Prueba"
         //     res.json({

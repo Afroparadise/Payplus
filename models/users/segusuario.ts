@@ -2,9 +2,7 @@ import { DataTypes, Model } from 'sequelize';
 import db from '../../db/connections';
 import sucursal from '../sucursal/mntsucursal'
 
-class segusuario extends Model {}
-
-segusuario.init({
+const segusuario = db.define("segusuario",{
     UsuarioId:{
         type:DataTypes.INTEGER,
         primaryKey:true,
@@ -75,12 +73,13 @@ segusuario.init({
         allowNull:true,
     },
 },{
-    sequelize:db,
-    modelName:"segusuario",
     timestamps:true,
     createdAt:"BitacoraFechaInsercion",
     updatedAt:"BitacoraFechaModifica",
     tableName:'segusuario',
-})
+});
 
+(async () => {
+    await db.sync();
+  })();
 export default segusuario

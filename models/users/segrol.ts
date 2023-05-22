@@ -8,14 +8,15 @@ const segrol = db.define("segrol",{
         allowNull:false,
         primaryKey:true
     },
-    RolName:DataTypes.STRING(60),
-    RolDescription:DataTypes.STRING(60),
+    RolNombre:DataTypes.STRING(60),
+    RolDescripcion:DataTypes.STRING(60),
     BitacoraUsuarioInserta:DataTypes.INTEGER,
     BitacoraUsuarioModifica:DataTypes.INTEGER
 },{
     timestamps:true,
     createdAt:"BitacoraFechaInsercion",
-    updatedAt:'BitacoraFechaModifica'
+    updatedAt:'BitacoraFechaModifica',
+    tableName:"segrol"
 })
 
 

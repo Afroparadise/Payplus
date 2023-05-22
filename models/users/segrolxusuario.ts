@@ -15,13 +15,22 @@ export default db.define('segrolxusuario',{
 },{
     timestamps:true,
     createdAt:'BitacoraFechaInsercion',
-    updatedAt:'BitacoraFechaModifica'
+    updatedAt:'BitacoraFechaModifica',
+    tableName:"segrolxusuario"
 })
 
 Users.belongsToMany(rols,{
     through:"segrolxusuario",
-})
+    as:"Rols",
+    sourceKey:'UsuarioId',
+    foreignKey:"UsuarioId"
+});
 
 rols.belongsToMany(Users,{
-    through:'segrolxusuario'
-})
+    through:'segrolxusuario',
+    as:"Usuarios",
+    sourceKey:'RolId',
+    foreignKey:'RolId'
+});
+
+(async ()=>{ await db.sync()})

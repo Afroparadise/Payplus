@@ -2,13 +2,22 @@ import { Request, Response } from "express"
 import Users from "../models/users/segusuario";
 import { segusuario } from "../dto/users/users";
 import segrolxusuario from '../models/users/segrolxusuario';
+import segrol from "../models/users/segrol";
 
 export const getUsers =async(req:Request, res:Response)=>{
     try{
         const users = await Users.findAll({
             include:[{all:true}],
         });
-        res.json(users)
+        const rolByUser = await segrolxusuario.findAll({include:[{all:true}]})
+        // const rols = await segrol.findAll();
+        res.json({
+            ok:true,
+            message:"Usuarios Obtenidos",
+            data:{
+                users
+            }
+        })
     }catch(ex){
         res.status(404).json({
             ok:false,
