@@ -1,5 +1,6 @@
 import express, {Application} from 'express';
 import userRoutes from '../routes/users'
+import adminRoutes from '../routes/admin'
 import cors from 'cors'
 import db from '../db/connections';
 
@@ -8,7 +9,8 @@ class Server{
     private app:Application;
     private port: string 
     private apiPaths ={
-        users: '/api/users'
+        users: '/api/users',
+        admin: '/api/admin'
     }
 
 
@@ -46,6 +48,7 @@ class Server{
 
     routes(){
         this.app.use( this.apiPaths.users,userRoutes)
+        this.app.use( this.apiPaths.admin, adminRoutes);
     }
     listen(){
         this.app.listen(this.port, ()=>{

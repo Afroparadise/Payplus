@@ -12,11 +12,11 @@ export default db.define('rtaxusuario',{
         allowNull:false
     },
     fechaEntrada: {
-        type: DataTypes.DATE,
+        type: DataTypes.DATE(6),
         allowNull:false,
     },
     fechaSalida: {
-        type: DataTypes.DATE,
+        type: DataTypes.DATE(6),
         allowNull:false,
     },
     punch: {

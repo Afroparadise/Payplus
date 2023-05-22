@@ -15,7 +15,7 @@ export default db.define('mntsucursalxusuario',{
         allowNull:true,
     },
     BitacoraFechaInsercion: {
-        type: DataTypes.DATE,
+        type: DataTypes.DATE(6),
         allowNull:true,
     },
     BitacoraUsuarioModifica: {
@@ -23,7 +23,7 @@ export default db.define('mntsucursalxusuario',{
         allowNull:true,
     },
     BitacoraFechaModifica: {
-        type: DataTypes.DATE,
+        type: DataTypes.DATE(6),
         allowNull:true,
     },
 },{

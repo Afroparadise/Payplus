@@ -13,15 +13,15 @@ export default db.define("mntsucursalfenosa",{
         allowNull:false,
     },
     SucursalEstado:{
-        type:DataTypes.STRING,
+        type:DataTypes.STRING(20),
         allowNull:false,
     },
     SucursalFechaApertura:{
-        type:DataTypes.DATE,
+        type:DataTypes.DATE(6),
         allowNull:false,
     },
     SucursalFechaCierre:{
-        type:DataTypes.DATE,
+        type:DataTypes.DATE(6),
         allowNull:true,
     },
     TotalCajasAbiertas:{

@@ -8,12 +8,12 @@ export default db.define("mntsucursalensa",{
         allowNull:false
     },
     id_sucursal: {
-        type:DataTypes.STRING,
+        type:DataTypes.STRING(4),
         primaryKey:true,
         allowNull:false,
     },
     lugar_pago:{
-        type:DataTypes.STRING,
+        type:DataTypes.STRING(60),
         allowNull:false,
     }
 },{timestamps:false})

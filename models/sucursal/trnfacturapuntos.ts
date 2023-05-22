@@ -25,7 +25,7 @@ export default db.define("mntsucursalxusuario",{
         allowNull:true,
     },
     Fecha:{
-        type:DataTypes.DATE,
+        type:DataTypes.DATE(6),
         allowNull:true,
     },
 },{timestamps:false,})

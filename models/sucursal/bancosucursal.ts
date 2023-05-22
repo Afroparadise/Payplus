@@ -13,7 +13,7 @@ const bancosucursal = db.define("bancosucursal",{
         allowNull:false,
     },
     NombreSucursal:{
-        type:DataTypes.STRING,
+        type:DataTypes.STRING(300),
         allowNull:false,
     }
 },{timestamps:false})

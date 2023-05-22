@@ -1,48 +1,46 @@
-import { DataTypes } from 'sequelize';
+import { DataTypes, Model } from 'sequelize';
 import db from '../../db/connections';
 import sucursal from '../sucursal/mntsucursal'
 
-const segusuario = db.define('segusuario',{
+class segusuario extends Model {}
+
+segusuario.init({
     UsuarioId:{
         type:DataTypes.INTEGER,
         primaryKey:true,
-        allowNull:false,
-        autoIncrement:true,
-    },
-    SucursalId: {
-        type: DataTypes.INTEGER,
+        allowNull:false
     },
     UsuarioApellido1: {
-        type: DataTypes.STRING,
+        type: DataTypes.STRING(60),
         allowNull:false,
     },
     UsuarioApellido2: {
-        type: DataTypes.STRING,
+        type: DataTypes.STRING(60),
         allowNull:false,
     },
     UsuarioNombre: {
-        type: DataTypes.STRING,
+        type: DataTypes.STRING(60),
         allowNull:false,
     },
     UsuarioTelefono: {
-        type: DataTypes.STRING,
+        type: DataTypes.STRING(60),
     },
     UsuarioCelular: {
-        type: DataTypes.STRING,
+        type: DataTypes.STRING(60),
     },
     UsuarioDireccion: {
-        type: DataTypes.STRING,
+        type: DataTypes.STRING(500),
     },
     UsuarioLogin: {
-        type: DataTypes.STRING,
+        type: DataTypes.STRING(60),
         allowNull:false,
     },
     UsuarioPassword: {
-        type: DataTypes.STRING,
+        type: DataTypes.STRING(32),
         allowNull:false,
     },
     UsuarioEmail: {
-        type: DataTypes.STRING
+        type: DataTypes.STRING(60)
     },
     UsuarioCambiaClave: {
         type: DataTypes.TINYINT,
@@ -57,7 +55,7 @@ const segusuario = db.define('segusuario',{
         allowNull:false,
     },
     BitacoraFechaInsercion:{
-        type:DataTypes.DATE,
+        type:DataTypes.DATE(6),
         allowNull:true,
     },
     BitacoraUsuarioModifica:{
@@ -65,11 +63,11 @@ const segusuario = db.define('segusuario',{
         allowNull:false,
     },
     BitacoraFechaModifica:{
-        type:DataTypes.DATE,
+        type:DataTypes.DATE(6),
         allowNull:true,
     },
     UsuarioIdentificacion:{
-        type:DataTypes.STRING,
+        type:DataTypes.STRING(16),
         allowNull:false,
     },
     UsuarioTipo:{
@@ -77,8 +75,12 @@ const segusuario = db.define('segusuario',{
         allowNull:true,
     },
 },{
-    timestamps:false,
+    sequelize:db,
+    modelName:"segusuario",
+    timestamps:true,
+    createdAt:"BitacoraFechaInsercion",
+    updatedAt:"BitacoraFechaModifica",
     tableName:'segusuario',
-    
 })
+
 export default segusuario
