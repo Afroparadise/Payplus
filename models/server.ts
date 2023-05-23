@@ -47,8 +47,8 @@ class Server{
     }
 
     routes(){
-        this.app.use( this.apiPaths.users,userRoutes)
-        this.app.use( this.apiPaths.admin, adminRoutes);
+        this.app.use( this.apiPaths.users,userRoutes);
+        this.app.use( this.apiPaths.admin,adminRoutes);
     }
     listen(){
         this.app.listen(this.port, ()=>{

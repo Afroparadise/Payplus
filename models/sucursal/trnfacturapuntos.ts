@@ -1,7 +1,9 @@
 import { DataType, DataTypes } from "sequelize";
 import db from "../../db/connections";
 
-export default db.define("mntsucursalxusuario",{
+import mntsucursal from "./mntsucursal";
+
+const trnfacturapuntos =  db.define("trnfacturapuntos",{
     TransaccionId: {
         type:DataTypes.INTEGER,
         primaryKey:true,
@@ -28,4 +30,14 @@ export default db.define("mntsucursalxusuario",{
         type:DataTypes.DATE(6),
         allowNull:true,
     },
-},{timestamps:false,})
+},{
+    tableName:"trnfacturapuntos",
+    timestamps:false,
+})
+
+trnfacturapuntos.belongsTo(mntsucursal,{
+    foreignKey:"SucursalId",
+    targetKey:"SucursalId",
+})
+
+export default trnfacturapuntos;

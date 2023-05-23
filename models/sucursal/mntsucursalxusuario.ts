@@ -1,7 +1,7 @@
 import { DataType, DataTypes } from "sequelize";
 import db from "../../db/connections";
 
-export default db.define("mntsucursalxusuario",{
+const mntsucursalxusuario = db.define("mntsucursalxusuario",{
     SucursalId: {
         type:DataTypes.INTEGER,
         allowNull:false,
@@ -14,16 +14,15 @@ export default db.define("mntsucursalxusuario",{
         type:DataTypes.INTEGER,
         allowNull:true,
     },
-    BitacoraUsuarioFechaInsercion:{
-        type:DataTypes.DATE(6),
-        allowNull:true,
-    },
     BitacoraUsuarioModifica:{
         type:DataTypes.INTEGER,
         allowNull:true,
     },
-    BitacoraFechaModifica:{
-        type:DataTypes.DATE(6),
-        allowNull:true,
-    },
-},{timestamps:false,})
+},{
+    tableName:"mntsucursalxusuario",
+    timestamps:true,
+    createdAt:"BitacoraFechaInsercion",
+    updatedAt:"BitacoraFechaModifica"
+})
+
+export default mntsucursalxusuario;

@@ -2,12 +2,16 @@ import { DataTypes, Sequelize, Model } from 'sequelize';
 import db from '../../db/connections';
 import Usuario from '../users/segusuario'
 
-class MntSucursal extends Model{}
+import trnsucursalcierre from './trnsucursalcierre';
+import mntsucursalensa from './mntsucursalensa';
+import mntsucursalfenosa from './mntsucursalfenosa';
+import trnfacturapuntos from './trnfacturapuntos';
 
-MntSucursal.init({
+const mntsucursal = db.define("mntsucursal",{
     SucursalId:{
         type:DataTypes.INTEGER,
         primaryKey:true,
+        allowNull:false
     },
     ZonaId: {
         type: DataTypes.INTEGER,
@@ -58,12 +62,28 @@ MntSucursal.init({
         defaultValue:0
     },
 },{
-    sequelize:db,
-    timestamps:false
+    tableName:'mntsucursal',
+    timestamps:true,
+    createdAt:"BitacoraFechaInsercion",
+    updatedAt:"BitacoraFechaModifica"
 })
 
-// MntSucursal.hasMany(Usuario,{
-//     foreignKey:'SucursalId',
-//     sourceKey:'SucursalId'
-// })
-export default MntSucursal
+mntsucursal.hasMany(trnsucursalcierre,{
+    foreignKey:"SucursalId",
+    sourceKey:"SucursalId"
+})
+
+mntsucursal.hasMany(mntsucursalensa,{
+    foreignKey:"SucursalId",
+    sourceKey:"SucursalId"
+})
+
+mntsucursal.hasMany(mntsucursalfenosa,{
+    foreignKey:"SucursalId"
+})
+
+mntsucursal.hasMany(trnfacturapuntos,{
+    foreignKey:"SucursalId"
+})
+
+export default mntsucursal
