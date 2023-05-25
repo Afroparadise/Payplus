@@ -1,9 +1,11 @@
-import { DataTypes } from 'sequelize';
-import db from '../../db/connections';
-import Users from './segusuario';
-import rols from './segrol'
+import { DataTypes, Model } from 'sequelize';
+import sequelize from '../../db/connections';
+import SegUsuario from './segusuario';
+import SegRol from './segrol'
 
-export default db.define('segrolxusuario',{
+class SegRolxUsuario extends Model{}
+
+SegRolxUsuario.init({
     BitacoraUsuarioInserta: {
         type: DataTypes.INTEGER,
         allowNull:true,
@@ -13,24 +15,29 @@ export default db.define('segrolxusuario',{
         allowNull:true,
     },
 },{
+    sequelize,
     timestamps:true,
     createdAt:'BitacoraFechaInsercion',
     updatedAt:'BitacoraFechaModifica',
-    tableName:"segrolxusuario"
+    tableName:"segrolxusuario",
+    modelName:'SegRolxUsuario',
+
 })
 
-Users.belongsToMany(rols,{
-    through:"segrolxusuario",
+SegUsuario.belongsToMany(SegRol,{
+    through:SegRolxUsuario,
     as:"Rols",
     sourceKey:'UsuarioId',
     foreignKey:"UsuarioId"
 });
 
-rols.belongsToMany(Users,{
-    through:'segrolxusuario',
+SegRol.belongsToMany(SegUsuario,{
+    through:SegRolxUsuario,
     as:"Usuarios",
     sourceKey:'RolId',
     foreignKey:'RolId'
 });
 
-(async ()=>{ await db.sync()})
+(async ()=>{ await sequelize.sync()})
+
+export default SegRolxUsuario;

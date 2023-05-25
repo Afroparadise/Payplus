@@ -3,7 +3,7 @@ import md5 from 'md5'
 import db from "../db/connections";
 import Users from "../models/users/segusuario"
 import {GenJWT} from "../helpers/jwt"
-import { segusuario } from "../dto/users/users";
+import { SegusuarioCreate } from "../interfaces/users/segUsuario";
 import jwt, { Secret, VerifyOptions } from 'jsonwebtoken';
 import { DataTypes } from "sequelize";
 import segrolxusuario from "../models/users/segrolxusuario";

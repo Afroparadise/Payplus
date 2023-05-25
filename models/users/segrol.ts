@@ -1,8 +1,11 @@
 import db from "../../db/connections";
-import { DataTypes } from "sequelize";
-import Users from './segusuario'
+import { DataTypes, Model } from "sequelize";
+import segusuario from './segusuario'
+import SegRolxUsuario from "./segrolxusuario";
 
-const segrol = db.define("segrol",{
+
+class SegRol extends Model{}
+SegRol.init({
     RolId:{
         type:DataTypes.INTEGER,
         allowNull:false,
@@ -13,6 +16,8 @@ const segrol = db.define("segrol",{
     BitacoraUsuarioInserta:DataTypes.INTEGER,
     BitacoraUsuarioModifica:DataTypes.INTEGER
 },{
+    sequelize:db,
+    modelName:'SegRol',
     timestamps:true,
     createdAt:"BitacoraFechaInsercion",
     updatedAt:'BitacoraFechaModifica',
@@ -20,4 +25,4 @@ const segrol = db.define("segrol",{
 })
 
 
-export default segrol;
+export default SegRol;

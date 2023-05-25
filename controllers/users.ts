@@ -1,16 +1,14 @@
 import { Request, Response } from "express"
 import Users from "../models/users/segusuario";
-import { segusuario } from "../dto/users/users";
+import { SegusuarioCreate, SegusuarioGet } from "../interfaces/users/segUsuario";
 import segrolxusuario from '../models/users/segrolxusuario';
 import segrol from "../models/users/segrol";
+import { getSegUsuariosS } from "../service/usuarios/segusuario";
 
-export const getUsers =async(req:Request, res:Response)=>{
+export const getSegUsuarios =async(req:Request, res:Response)=>{
+    const usuario : SegusuarioGet = req.body
     try{
-        const users = await Users.findAll({
-            include:[{all:true}],
-        });
-        const rolByUser = await segrolxusuario.findAll({include:[{all:true}]})
-        // const rols = await segrol.findAll();
+        const users = await getSegUsuariosS(usuario);
         res.json({
             ok:true,
             message:"Usuarios Obtenidos",
@@ -26,7 +24,7 @@ export const getUsers =async(req:Request, res:Response)=>{
         })
     }
 }
-export const getUser = async (req:Request, res:Response)=>{
+export const getSegUsuario = async (req:Request, res:Response)=>{
     const{ id } = req.params;
     try{
         const user = await Users.findByPk(id);
@@ -56,7 +54,7 @@ export const getUser = async (req:Request, res:Response)=>{
 export const postUser = async (req:Request, res:Response)=>{
     const { body } = req;
     try{
-        let newUser : segusuario = body
+        let newUser : SegusuarioCreate = body
         const user = await Users.create({...newUser})
         res.json({
             msg:'postUser',
@@ -75,7 +73,7 @@ export const putUser =async (req:Request, res:Response)=>{
     const{ id } = req.params;
     const { body } = req;
     try{
-        let newUser : segusuario = body
+        let newUser : SegusuarioCreate = body
         const user = await Users.update(newUser,{where:{
             usuarioId:id
         }})
@@ -94,11 +92,25 @@ export const putUser =async (req:Request, res:Response)=>{
     }
 
 }
-export const deleteUser =(req:Request, res:Response)=>{
+export const deleteUser = async (req:Request, res:Response)=>{
     const{ id } = req.params;
-    res.json({
-        msg:'deleteUser',
-        id
-    })
+    try{
+        let destroyed = await Users.destroy({
+            where:{
+                UsuarioId:id
+            }
+        })
+        if(destroyed > 0 ){
+            res.json({
+                ok:true,
+                message:"Row deleted",
+            })
+        }
+    }catch(ex){
+        res.status(404).json({
+            ok:false,
+            message:ex
+        })
+    }
 
 }

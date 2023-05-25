@@ -1,8 +1,12 @@
 import { DataTypes, Model } from 'sequelize';
 import db from '../../db/connections';
 import sucursal from '../sucursal/mntsucursal'
+import segrol from './segrol';
+import SegRolxUsuario from './segrolxusuario';
 
-const segusuario = db.define("segusuario",{
+class SegUsuario extends Model{}
+
+SegUsuario.init({
     UsuarioId:{
         type:DataTypes.INTEGER,
         primaryKey:true,
@@ -73,13 +77,17 @@ const segusuario = db.define("segusuario",{
         allowNull:true,
     },
 },{
+    sequelize:db,
+    modelName:"SegUsuario",
     timestamps:true,
     createdAt:"BitacoraFechaInsercion",
     updatedAt:"BitacoraFechaModifica",
     tableName:'segusuario',
 });
 
+
+
 (async () => {
     await db.sync();
   })();
-export default segusuario
+export default SegUsuario;
