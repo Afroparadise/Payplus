@@ -7,13 +7,15 @@ export const getSegRolxUsuarioS = async (segrolxusuarioGet: SegrolxusuarioGet)=>
             where:{...segrolxusuarioGet},
             include:[{all:true}]
         })
+        return segRolxUsuario
     }catch(ex){
         throw ex
     }
 }
 export const addSegRolxUsuarioS = async (segrolxusuarioCreate: SegrolxusuarioCreate)=>{
     try{
-        const segRolxUsuario = await SegRolxUsuario.create({segrolxusuarioCreate})
+        const segRolxUsuario = await SegRolxUsuario.create({...segrolxusuarioCreate})
+        return segRolxUsuario
     }catch(ex){
         throw ex
     }
@@ -26,6 +28,7 @@ export const updateSegRolxUsuarioS = async (segrolxusuarioUpdate: Segrolxusuario
                 RolId:segrolxusuarioUpdate.RolId
             }
         })
+        return segRolxUsuario
     }catch(ex){
         throw ex
     }

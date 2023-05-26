@@ -129,7 +129,7 @@ export const getRtaxUsuario = async(req:Request,res:Response)=>{
         let rtaxusaurios = await getRtaxUsuarioS(rtaxusuarioGet);
         res.json({
             ok:true,
-            message:"Roles Obtenidos",
+            message:"Rta por usuario Obtenidos",
             data:{
                 rols: rtaxusaurios
             }
@@ -147,7 +147,7 @@ export const addRtaxUsuario = async(req:Request,res:Response)=>{
         let rtaxusaurio = await addRtaxUsuarioS(rtaxusuarioCreate);
         res.status(201).json({
             ok:true,
-            message:"Rol Creado",
+            message:"Rta por usuario Creado",
             data:{
                 rtaxusaurio
             }
@@ -165,7 +165,7 @@ export const updateRtaxUsuario = async(req:Request,res:Response)=>{
         let rtaxUsuario = await updateRtaxUsuarioS(rtaxusuarioUpdate);
         res.status(201).json({
             ok:true,
-            message:"Rol Actualizado",
+            message:"Rta por usuario Actualizado",
             data:{
                 rtaxUsuario
             }
@@ -184,7 +184,7 @@ export const getSegRolxUsuario = async(req:Request,res:Response)=>{
         let segrolxusuarios = await getSegRolxUsuarioS(segrolxusuarioGet);
         res.json({
             ok:true,
-            message:"Roles Obtenidos",
+            message:"Rol por usuario Obtenidos",
             data:{
                 segrolxusuarios
             }
@@ -202,7 +202,7 @@ export const addSegRolxUsuario = async(req:Request,res:Response)=>{
         let segrolxusuario = await addSegRolxUsuarioS(segrolxusuarioCreate);
         res.status(201).json({
             ok:true,
-            message:"Rol Creado",
+            message:"Rol por usuario Creado",
             data:{
                 rtaxusaurio: segrolxusuario
             }
@@ -220,7 +220,7 @@ export const updateSegRolxUsuario = async(req:Request,res:Response)=>{
         let segrolxusuario = await updateSegRolxUsuarioS(segrolxusuarioUpdate);
         res.status(201).json({
             ok:true,
-            message:"Rol Actualizado",
+            message:"Rol por usuario Actualizado",
             data:{
                 segrolxusuario
             }
