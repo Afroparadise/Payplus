@@ -1,13 +1,37 @@
 import { Router } from "express";
-import {getSegUsuarios, getSegUsuario, postUser, putUser} from '../controllers/users'
+import {
+    getSegUsuarios, 
+    postUser, 
+    putUser,
+    getRols,
+    getRtaxUsuario,
+    getSegRolxUsuario,
+    addRols,
+    addRtaxUsuario,
+    addSegRolxUsuario,
+    updateRols,
+    updateRtaxUsuario,
+    updateSegRolxUsuario
+} from '../controllers/users'
 
 const router = Router();
 
 
-router.get('/', getSegUsuarios );
-router.get('/:id', getSegUsuario);
-router.post('/',postUser);
-router.put('/:id', putUser);
+router.post('/getsegusuario', getSegUsuarios );
+router.post('/addsegusuario',postUser);
+router.put('/updatesegusuario', putUser);
+
+router.post('/getsegrol',getRols);
+router.post('/addsegrol',addRols);
+router.put('/updatesegrol',updateRols);
+
+router.post('/getrtaxusuaro',getRtaxUsuario);
+router.post('/addrtaxusuario',addRtaxUsuario);
+router.put('/updatertaxusuario',updateRtaxUsuario);
+
+router.post('/getsegrolxusaurio',getSegRolxUsuario);
+router.post('/addsegrolxusaurio',addSegRolxUsuario);
+router.put('/updatesegrolxusuario',updateSegRolxUsuario);
 
 
 

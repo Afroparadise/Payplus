@@ -9,6 +9,8 @@ Rtaxusuario.init({
     RTA_idRTA:{
         type:DataTypes.INTEGER,
         allowNull:false,
+        primaryKey:true,
+        autoIncrement:false
     },
     Usuario_idUsuario: {
         type: DataTypes.INTEGER,
@@ -29,19 +31,22 @@ Rtaxusuario.init({
 },{
     sequelize,
     modelName:'Rtaxusuario',
+    tableName:'rtaxusuario',
     timestamps:false,
-    tableName:'rtaxusuario'
 });
 
 SegUsuario.belongsToMany(Rta,{
     through:"rtaxusuario",
     foreignKey:"Usuario_idUsuario",
-    as:"Rtas"
+    as:"Rtas",
+    timestamps:false
 });
 Rta.belongsToMany(SegUsuario,{
     through:"rtaxusuario",
-    foreignKey:"idRTA",
-    as:"Usuarios"
+    foreignKey:"RTA_idRTA",
+    sourceKey:"idRTA",
+    as:"Usuarios",
+    timestamps:false
 });
 
 (async()=>{

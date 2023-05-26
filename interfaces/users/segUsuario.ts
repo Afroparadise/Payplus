@@ -1,4 +1,5 @@
 export interface SegusuarioCreate{
+    UsuarioId:number;
     SucursalId?:number,
     UsuarioApellido1:string,
     UsuarioApellido2:string,

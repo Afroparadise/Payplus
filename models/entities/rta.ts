@@ -7,6 +7,7 @@ Rta.init({
     idRTA:{
         type:DataTypes.INTEGER,
         primaryKey:true,
+        autoIncrement:true,
         allowNull:false,
     },
     fechaEntrada:{

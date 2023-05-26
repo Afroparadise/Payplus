@@ -1,13 +1,17 @@
 import { Request, Response } from "express"
 import Users from "../models/users/segusuario";
-import { SegusuarioCreate, SegusuarioGet } from "../interfaces/users/segUsuario";
+import { SegusuarioCreate, SegusuarioGet, SegusuarioUpdate } from "../interfaces/users/segUsuario";
 import segrolxusuario from '../models/users/segrolxusuario';
 import segrol from "../models/users/segrol";
-import { getSegUsuariosS } from "../service/usuarios/segusuario";
+import { addSegUsuarioS, getSegUsuariosS, updSegUsuarioS } from "../service/usuarios/segusuario";
 import { SegrolCreate, SegrolGet, SegrolUpdate } from "../interfaces/users/segRol";
 import { sAddSegRol, sGetSegRol, sUpdateSegRol } from "../service/usuarios/segrol";
+import { RtaxusuarioCreate, RtaxusuarioGet, RtaxusuarioUpdate } from "../interfaces/users/rtaxUsuario";
+import { addRtaxUsuarioS, getRtaxUsuarioS, updateRtaxUsuarioS } from "../service/usuarios/rtaxusuario";
+import { SegrolxusuarioCreate, SegrolxusuarioGet, SegrolxusuarioUpdate } from "../interfaces/users/segRolxUsuario";
+import { addSegRolxUsuarioS, getSegRolxUsuarioS, updateSegRolxUsuarioS } from "../service/usuarios/segrolxusuario";
 
-export const getSegUsuarios =async(req:Request, res:Response)=>{
+export const getSegUsuarios = async(req:Request, res:Response)=>{
     const usuario : SegusuarioGet = req.body
     try{
         const users = await getSegUsuariosS(usuario);
@@ -26,38 +30,11 @@ export const getSegUsuarios =async(req:Request, res:Response)=>{
         })
     }
 }
-export const getSegUsuario = async (req:Request, res:Response)=>{
-    const{ id } = req.params;
-    try{
-        const user = await Users.findByPk(id);
-        if(user){
-            res.json({
-                ok:true,
-                message:'getUser',
-                data:{
-                    user
-                }
-            })
-        }else{
-            res.status(404).json({
-                ok:false,
-                data:null,
-                message:"user not found",
-            })
-        }
-    }catch(e){
-        res.status(404).json({
-            ok:false,
-            message:'Not Found',
-            error:e,
-        })
-    }
-}
 export const postUser = async (req:Request, res:Response)=>{
     const { body } = req;
     try{
-        let newUser : SegusuarioCreate = body
-        const user = await Users.create({...newUser})
+        let segusuarioCreate : SegusuarioCreate = body
+        const user = await addSegUsuarioS(segusuarioCreate);
         res.json({
             msg:'postUser',
             data:{
@@ -71,14 +48,10 @@ export const postUser = async (req:Request, res:Response)=>{
         })
     }
 }
-export const putUser =async (req:Request, res:Response)=>{
-    const{ id } = req.params;
-    const { body } = req;
+export const putUser = async (req:Request, res:Response)=>{
     try{
-        let newUser : SegusuarioCreate = body
-        const user = await Users.update(newUser,{where:{
-            usuarioId:id
-        }})
+        const segusuarioUpdate: SegusuarioUpdate = req.body;
+        const user = await updSegUsuarioS(segusuarioUpdate)
         res.json({
             ok:true,
             data:{
@@ -113,7 +86,6 @@ export const getRols = async(req:Request,res:Response)=>{
         })
     }
 }
-
 export const addRols = async(req:Request,res:Response)=>{
     const rol : SegrolCreate = req.body
     try{
@@ -141,6 +113,116 @@ export const updateRols = async(req:Request,res:Response)=>{
             message:"Rol Actualizado",
             data:{
                 rol:rolUpdated
+            }
+        })
+    }catch(ex){
+        res.status(404).json({
+            ok:false,
+            message:ex
+        })
+    }
+}
+
+export const getRtaxUsuario = async(req:Request,res:Response)=>{
+    const rtaxusuarioGet : RtaxusuarioGet = req.body
+    try{
+        let rtaxusaurios = await getRtaxUsuarioS(rtaxusuarioGet);
+        res.json({
+            ok:true,
+            message:"Roles Obtenidos",
+            data:{
+                rols: rtaxusaurios
+            }
+        })
+    }catch(ex){
+        res.status(404).json({
+            ok:false,
+            message:ex
+        })
+    }
+}
+export const addRtaxUsuario = async(req:Request,res:Response)=>{
+    const rtaxusuarioCreate : RtaxusuarioCreate = req.body
+    try{
+        let rtaxusaurio = await addRtaxUsuarioS(rtaxusuarioCreate);
+        res.status(201).json({
+            ok:true,
+            message:"Rol Creado",
+            data:{
+                rtaxusaurio
+            }
+        })
+    }catch(ex){
+        res.status(404).json({
+            ok:false,
+            message:ex
+        })
+    }
+}
+export const updateRtaxUsuario = async(req:Request,res:Response)=>{
+    const rtaxusuarioUpdate : RtaxusuarioUpdate = req.body
+    try{
+        let rtaxUsuario = await updateRtaxUsuarioS(rtaxusuarioUpdate);
+        res.status(201).json({
+            ok:true,
+            message:"Rol Actualizado",
+            data:{
+                rtaxUsuario
+            }
+        })
+    }catch(ex){
+        res.status(404).json({
+            ok:false,
+            message:ex
+        })
+    }
+}
+
+export const getSegRolxUsuario = async(req:Request,res:Response)=>{
+    const segrolxusuarioGet : SegrolxusuarioGet = req.body
+    try{
+        let segrolxusuarios = await getSegRolxUsuarioS(segrolxusuarioGet);
+        res.json({
+            ok:true,
+            message:"Roles Obtenidos",
+            data:{
+                segrolxusuarios
+            }
+        })
+    }catch(ex){
+        res.status(404).json({
+            ok:false,
+            message:ex
+        })
+    }
+}
+export const addSegRolxUsuario = async(req:Request,res:Response)=>{
+    const segrolxusuarioCreate : SegrolxusuarioCreate = req.body
+    try{
+        let segrolxusuario = await addSegRolxUsuarioS(segrolxusuarioCreate);
+        res.status(201).json({
+            ok:true,
+            message:"Rol Creado",
+            data:{
+                rtaxusaurio: segrolxusuario
+            }
+        })
+    }catch(ex){
+        res.status(404).json({
+            ok:false,
+            message:ex
+        })
+    }
+}
+export const updateSegRolxUsuario = async(req:Request,res:Response)=>{
+    const segrolxusuarioUpdate : SegrolxusuarioUpdate = req.body
+    try{
+        let segrolxusuario = await updateSegRolxUsuarioS(segrolxusuarioUpdate);
+        res.status(201).json({
+            ok:true,
+            message:"Rol Actualizado",
+            data:{
+                segrolxusuario
             }
         })
     }catch(ex){

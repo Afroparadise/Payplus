@@ -6,8 +6,8 @@ import { DataTypes, Model, Sequelize } from "sequelize"
 class Mntcaja extends Model{}
 
 Mntcaja.init({
-    CajaId: {type:DataTypes.INTEGER,allowNull:false,primaryKey:false},
-    CajaDescription:{type:DataTypes.STRING(60),allowNull:false},
+    CajaId: {type:DataTypes.INTEGER,allowNull:false,primaryKey:true,autoIncrement:false},
+    CajaDescripcion:{type:DataTypes.STRING(60),allowNull:false},
     CajaFactura:{type:DataTypes.INTEGER,allowNull:false},
     CajaActiva:{type:DataTypes.TINYINT,allowNull:false},
     CajaMontoAlertaRetiro:{type:DataTypes.DECIMAL(19,4),allowNull:false},
@@ -24,13 +24,13 @@ Mntcaja.init({
 });
 
 segusuario.belongsToMany(MntSucursal,{
-    through:"Mntcaja",
+    through:"mntcaja",
     foreignKey:"UsuarioId",
     as:"Sucursales"
 });
 
 MntSucursal.belongsToMany(segusuario,{
-    through:"Mntcaja",
+    through:"mntcaja",
     foreignKey:"SucursalId",
     as:'Usuarios'
 });

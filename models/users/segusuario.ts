@@ -87,7 +87,6 @@ SegUsuario.init({
     tableName:'segusuario',
 });
 
-
 SegUsuario.hasMany(Rta,{
     foreignKey:"Usuario_idUSuario",
 });
