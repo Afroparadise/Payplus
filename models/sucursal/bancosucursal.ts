@@ -1,7 +1,9 @@
-import { DataType, DataTypes } from "sequelize";
-import db from "../../db/connections";
+import { DataType, DataTypes, Model } from "sequelize";
+import sequelize from "../../db/connections";
 
-const bancosucursal = db.define("bancosucursal",{
+class Bancosucursal extends Model{}
+
+Bancosucursal.init({
     COD_Banco: {
         type:DataTypes.INTEGER,
         primaryKey:true,
@@ -16,6 +18,10 @@ const bancosucursal = db.define("bancosucursal",{
         type:DataTypes.STRING(300),
         allowNull:false,
     }
-},{timestamps:false})
+},{
+    sequelize,
+    modelName:"Bancosucursal",
+    timestamps:false
+})
 
-export default bancosucursal
+export default Bancosucursal

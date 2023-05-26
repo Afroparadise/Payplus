@@ -3,11 +3,16 @@ import db from "../../db/connections";
 import { SegusuarioCreate, SegusuarioGet, SegusuarioUpdate } from "../../interfaces/users/segUsuario";
 import segusuario from "../../models/users/segusuario";
 import segrolxusuario from "../../models/users/segrolxusuario";
+import Mntcaja from "../../models/caja/mntcaja";
 
 export const getSegUsuariosS = async (segusuarioGet:SegusuarioGet)=>{
     try{
-        let usuarios = await segusuario.findAll({where:{...segusuarioGet},include:[{all:true}]})
+        let usuarios = await segusuario.findAll({
+            where:{...segusuarioGet},
+            include:[{all:true}]
+        })
         await segrolxusuario.findAll();
+        await Mntcaja.findAll()
         return usuarios
     }catch(ex){
         throw ex;

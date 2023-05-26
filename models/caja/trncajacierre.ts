@@ -1,6 +1,6 @@
 import db from "../../db/connections";
 import { DataTypes } from "sequelize";
-import trnsucursalcierre from "../sucursal/trnsucursalcierre";
+import Trnsucursalcierre from "../sucursal/trnsucursalcierre";
 import trncajacierreretiro from "./trncajacierreretiro";
 
 const trncajacierre = db.define("trncajacierre",{
@@ -57,7 +57,7 @@ const trncajacierre = db.define("trncajacierre",{
     timestamps:false
 })
 
-trncajacierre.belongsTo(trnsucursalcierre,{
+trncajacierre.belongsTo(Trnsucursalcierre,{
     foreignKey:"SucursalCierreId",
     targetKey:"SucursalCierreId"
 })

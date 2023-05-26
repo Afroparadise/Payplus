@@ -1,9 +1,10 @@
-import { DataType, DataTypes } from "sequelize";
-import db from "../../db/connections";
+import { DataType, DataTypes, Model } from "sequelize";
+import sequelize from "../../db/connections";
 
 import mntsucursal from "./mntsucursal";
 
-const mntsucursalfenosa =  db.define("mntsucursalfenosa",{
+class Mntsucursalfenosa extends Model{}
+Mntsucursalfenosa.init({
     SucursalId: {
         type:DataTypes.INTEGER,
         primaryKey:true,
@@ -19,12 +20,18 @@ const mntsucursalfenosa =  db.define("mntsucursalfenosa",{
         allowNull:false,
     }
 },{
+    sequelize,
+    modelName:"Mntsucursalensa",
     tableName:"mntsucursalfenosa",
     timestamps:false
-})
+});
 
-mntsucursalfenosa.belongsTo(mntsucursal,{
+Mntsucursalfenosa.belongsTo(mntsucursal,{
     foreignKey:"SucursalId"
+});
+
+(async()=>{
+    await sequelize.sync();
 })
 
-export default mntsucursalfenosa;
+export default Mntsucursalfenosa;

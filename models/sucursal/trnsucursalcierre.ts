@@ -1,10 +1,12 @@
-import { DataType, DataTypes } from "sequelize";
-import db from "../../db/connections";
+import { DataType, DataTypes, Model } from "sequelize";
+import sequelize from "../../db/connections";
 
 import trncajacierre from "../caja/trncajacierre";
 import MntSucursal from "./mntsucursal";
 
-const trnsucursalcierre =  db.define("trnsucursalcierre",{
+class Trnsucursalcierre extends Model{}
+
+Trnsucursalcierre.init({
     SucursalCierreId: {
         type:DataTypes.INTEGER,
         primaryKey:true,
@@ -48,13 +50,19 @@ const trnsucursalcierre =  db.define("trnsucursalcierre",{
         allowNull:false,
     },
 },{
+    sequelize,
+    modelName:"Mntsucursalxusuario",
     tableName:"trnsucursalcierre",
     timestamps:false
 })
 
-trnsucursalcierre.belongsTo(MntSucursal,{
+Trnsucursalcierre.belongsTo(MntSucursal,{
     foreignKey:'SucursalId',
     targetKey:'SucursalId'
+});
+
+(async () => {
+    await sequelize.sync();
 })
 
-export default trnsucursalcierre;
+export default Trnsucursalcierre;

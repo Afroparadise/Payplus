@@ -1,7 +1,8 @@
-import { DataType, DataTypes } from "sequelize";
-import db from "../../db/connections";
+import { DataType, DataTypes, Model } from "sequelize";
+import sequelize from "../../db/connections";
 
-const mntsucursalxusuario = db.define("mntsucursalxusuario",{
+class Mntsucursalxusuario extends Model{}
+Mntsucursalxusuario.init({
     SucursalId: {
         type:DataTypes.INTEGER,
         allowNull:false,
@@ -19,10 +20,12 @@ const mntsucursalxusuario = db.define("mntsucursalxusuario",{
         allowNull:true,
     },
 },{
+    sequelize,
+    modelName:"Mntsucursalxusuario",
     tableName:"mntsucursalxusuario",
     timestamps:true,
     createdAt:"BitacoraFechaInsercion",
     updatedAt:"BitacoraFechaModifica"
 })
 
-export default mntsucursalxusuario;
+export default Mntsucursalxusuario;

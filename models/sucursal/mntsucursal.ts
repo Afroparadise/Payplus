@@ -1,13 +1,14 @@
 import { DataTypes, Sequelize, Model } from 'sequelize';
-import db from '../../db/connections';
+import sequelize from '../../db/connections';
 import Usuario from '../users/segusuario'
 
-import trnsucursalcierre from './trnsucursalcierre';
-import mntsucursalensa from './mntsucursalensa';
-import mntsucursalfenosa from './mntsucursalfenosa';
-import trnfacturapuntos from './trnfacturapuntos';
+import Trnsucursalcierre from './trnsucursalcierre';
+import Mntsucursalensa from './mntsucursalensa';
+import Mntsucursalfenosa from './mntsucursalfenosa';
+import Trnfacturapuntos from './trnfacturapuntos';
 
-const mntsucursal = db.define("mntsucursal",{
+class Mntsucursal extends Model{}
+Mntsucursal.init({
     SucursalId:{
         type:DataTypes.INTEGER,
         primaryKey:true,
@@ -62,28 +63,34 @@ const mntsucursal = db.define("mntsucursal",{
         defaultValue:0
     },
 },{
+    sequelize,
+    modelName:"Mntsucursal",
     tableName:'mntsucursal',
     timestamps:true,
     createdAt:"BitacoraFechaInsercion",
     updatedAt:"BitacoraFechaModifica"
 })
 
-mntsucursal.hasMany(trnsucursalcierre,{
+Mntsucursal.hasMany(Trnsucursalcierre,{
     foreignKey:"SucursalId",
     sourceKey:"SucursalId"
 })
 
-mntsucursal.hasMany(mntsucursalensa,{
+Mntsucursal.hasMany(Mntsucursalensa,{
     foreignKey:"SucursalId",
     sourceKey:"SucursalId"
 })
 
-mntsucursal.hasMany(mntsucursalfenosa,{
+Mntsucursal.hasMany(Mntsucursalfenosa,{
     foreignKey:"SucursalId"
 })
 
-mntsucursal.hasMany(trnfacturapuntos,{
+Mntsucursal.hasMany(Trnfacturapuntos,{
     foreignKey:"SucursalId"
+});
+
+(async()=>{
+    await sequelize.sync();
 })
 
-export default mntsucursal
+export default Mntsucursal;
