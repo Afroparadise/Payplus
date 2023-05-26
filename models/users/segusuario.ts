@@ -1,8 +1,9 @@
 import { DataTypes, Model } from 'sequelize';
-import db from '../../db/connections';
+import sequelize from '../../db/connections';
 import sucursal from '../sucursal/mntsucursal'
 import segrol from './segrol';
 import SegRolxUsuario from './segrolxusuario';
+import Mntcaja from '../caja/mntcaja';
 
 class SegUsuario extends Model{}
 
@@ -77,7 +78,7 @@ SegUsuario.init({
         allowNull:true,
     },
 },{
-    sequelize:db,
+    sequelize,
     modelName:"SegUsuario",
     timestamps:true,
     createdAt:"BitacoraFechaInsercion",
@@ -85,9 +86,11 @@ SegUsuario.init({
     tableName:'segusuario',
 });
 
-
+SegUsuario.hasMany(Mntcaja,{
+    foreignKey:'UsuarioId',
+});
 
 (async () => {
-    await db.sync();
-  })();
+    await sequelize.sync();
+})();
 export default SegUsuario;

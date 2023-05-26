@@ -1,8 +1,11 @@
-import db from "../../db/connections"
+import sequelize from "../../db/connections"
 import segusuario from '../users/segusuario'
 import MntSucursal from "../sucursal/mntsucursal"
-import { DataTypes } from "sequelize"
-const mntcaja = db.define("mntcaja",{
+import { DataTypes, Model, Sequelize } from "sequelize"
+
+class Mntcaja extends Model{}
+
+Mntcaja.init({
     CajaId: {type:DataTypes.INTEGER,allowNull:false},
     CajaDescription:{type:DataTypes.STRING(60),allowNull:false},
     CajaFactura:{type:DataTypes.INTEGER,allowNull:false},
@@ -12,19 +15,25 @@ const mntcaja = db.define("mntcaja",{
     BitacoraUsuarioInserta:DataTypes.INTEGER,
     BitacoraUsuarioModifica:DataTypes.INTEGER
 },{
+    sequelize,
+    modelName:'Mntcaja',
     tableName:"mntcaja",
     timestamps:true,
     createdAt:"BitacoraFechaInsercion",
     updatedAt:"BitacoraFechaModifica"
 })
 
-mntcaja.belongsTo(MntSucursal,{
+Mntcaja.belongsTo(MntSucursal,{
     foreignKey:"SucursalId",
     targetKey:"SucursalId"
-})
-mntcaja.belongsTo(segusuario,{
+});
+Mntcaja.belongsTo(segusuario,{
     foreignKey:"UsuarioId",
     targetKey:"UsuarioId"
+});
+
+(async()=>{
+    await sequelize.sync();
 })
 
-export default mntcaja
+export default Mntcaja;
