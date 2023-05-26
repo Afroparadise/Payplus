@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import md5 from 'md5'
-import db from "../db/connections";
+import sequelize from "../db/connections";
 import Users from "../models/users/segusuario"
 import {GenJWT} from "../helpers/jwt"
 import { SegusuarioCreate } from "../interfaces/users/segUsuario";

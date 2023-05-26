@@ -98,14 +98,6 @@ Trnfacturapuntos.belongsTo(Mntsucursal,{
     foreignKey:"SucursalId"
 });
 
-Mntsucursal.hasMany(Mntcaja,{
-    foreignKey:"SucursalId"
-})
-
-Mntcaja.belongsTo(Mntsucursal,{
-    foreignKey:"SucursalId"
-});
-
 (async()=>{
     await sequelize.sync();
 })

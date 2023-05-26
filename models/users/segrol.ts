@@ -1,4 +1,4 @@
-import db from "../../db/connections";
+import sequelize from "../../db/connections";
 import { DataTypes, Model } from "sequelize";
 import segusuario from './segusuario'
 import SegRolxUsuario from "./segrolxusuario";
@@ -16,7 +16,7 @@ SegRol.init({
     BitacoraUsuarioInserta:DataTypes.INTEGER,
     BitacoraUsuarioModifica:DataTypes.INTEGER
 },{
-    sequelize:db,
+    sequelize,
     modelName:'SegRol',
     timestamps:true,
     createdAt:"BitacoraFechaInsercion",

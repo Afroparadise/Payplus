@@ -1,7 +1,9 @@
-import { DataTypes } from "sequelize";
-import db from "../../db/connections";
+import { DataTypes, Model } from "sequelize";
+import sequelize from "../../db/connections";
 
-const acj = db.define("acj",{
+class Acj extends Model{}
+
+Acj.init({
     Id:{
         type:DataTypes.INTEGER,
         primaryKey:true,
@@ -22,8 +24,10 @@ const acj = db.define("acj",{
     Institucion:DataTypes.STRING(100),
     NombreInstitucion:DataTypes.STRING(200)
 },{
+    sequelize,
+    modelName:"Acj",
     tableName:"acj",
     timestamps:false,
 })
 
-export default acj
+export default Acj;

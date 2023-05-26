@@ -4,6 +4,7 @@ import sucursal from '../sucursal/mntsucursal'
 import segrol from './segrol';
 import SegRolxUsuario from './segrolxusuario';
 import Mntcaja from '../caja/mntcaja';
+import Rta from '../entities/rta';
 
 class SegUsuario extends Model{}
 
@@ -86,13 +87,12 @@ SegUsuario.init({
     tableName:'segusuario',
 });
 
-SegUsuario.hasMany(Mntcaja,{
-    foreignKey:'UsuarioId',
-});
 
-Mntcaja.belongsTo(SegUsuario,{
-    foreignKey:"UsuarioId",
-    targetKey:"UsuarioId"
+SegUsuario.hasMany(Rta,{
+    foreignKey:"Usuario_idUSuario",
+});
+Rta.belongsTo(SegUsuario,{
+    foreignKey:"Usuario_idUsuario"
 });
 
 (async () => {

@@ -4,6 +4,8 @@ import { SegusuarioCreate, SegusuarioGet } from "../interfaces/users/segUsuario"
 import segrolxusuario from '../models/users/segrolxusuario';
 import segrol from "../models/users/segrol";
 import { getSegUsuariosS } from "../service/usuarios/segusuario";
+import { SegrolCreate, SegrolGet, SegrolUpdate } from "../interfaces/users/segRol";
+import { sAddSegRol, sGetSegRol, sUpdateSegRol } from "../service/usuarios/segrol";
 
 export const getSegUsuarios =async(req:Request, res:Response)=>{
     const usuario : SegusuarioGet = req.body
@@ -92,25 +94,59 @@ export const putUser =async (req:Request, res:Response)=>{
     }
 
 }
-export const deleteUser = async (req:Request, res:Response)=>{
-    const{ id } = req.params;
+
+export const getRols = async(req:Request,res:Response)=>{
+    const rol : SegrolGet = req.body
     try{
-        let destroyed = await Users.destroy({
-            where:{
-                UsuarioId:id
+        let rols = await sGetSegRol(rol);
+        res.json({
+            ok:true,
+            message:"Roles Obtenidos",
+            data:{
+                rols
             }
         })
-        if(destroyed > 0 ){
-            res.json({
-                ok:true,
-                message:"Row deleted",
-            })
-        }
     }catch(ex){
         res.status(404).json({
             ok:false,
             message:ex
         })
     }
+}
 
+export const addRols = async(req:Request,res:Response)=>{
+    const rol : SegrolCreate = req.body
+    try{
+        let rolAdded = await sAddSegRol(rol);
+        res.status(201).json({
+            ok:true,
+            message:"Rol Creado",
+            data:{
+                rol:rolAdded
+            }
+        })
+    }catch(ex){
+        res.status(404).json({
+            ok:false,
+            message:ex
+        })
+    }
+}
+export const updateRols = async(req:Request,res:Response)=>{
+    const rol : SegrolUpdate = req.body
+    try{
+        let rolUpdated = await sUpdateSegRol(rol);
+        res.status(201).json({
+            ok:true,
+            message:"Rol Actualizado",
+            data:{
+                rol:rolUpdated
+            }
+        })
+    }catch(ex){
+        res.status(404).json({
+            ok:false,
+            message:ex
+        })
+    }
 }

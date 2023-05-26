@@ -1,5 +1,5 @@
 import { WhereOptions } from "sequelize";
-import db from "../../db/connections";
+import sequelize from "../../db/connections";
 import { SegusuarioCreate, SegusuarioGet, SegusuarioUpdate } from "../../interfaces/users/segUsuario";
 import segusuario from "../../models/users/segusuario";
 import segrolxusuario from "../../models/users/segrolxusuario";

@@ -1,7 +1,7 @@
 import { DataTypes } from "sequelize";
-import db from "../../db/connections";
+import sequelize from "../../db/connections";
 import trncajacierre from "./trncajacierre";
-const trncajacierreretiro = db.define("trncajacierreretiro",{
+const trncajacierreretiro = sequelize.define("trncajacierreretiro",{
     SucursalId:{
         type:DataTypes.INTEGER,
         allowNull:false,

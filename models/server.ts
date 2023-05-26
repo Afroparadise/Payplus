@@ -3,7 +3,7 @@ import userRoutes from '../routes/users'
 import adminRoutes from '../routes/admin'
 import cajaRoutes from '../routes/caja'
 import cors from 'cors'
-import db from '../db/connections';
+import sequelize from '../db/connections';
 
 class Server{
     
@@ -28,7 +28,7 @@ class Server{
     async dbConnection(){
        try {
         
-        await db.authenticate();
+        await sequelize.authenticate();
             console.log('Database online')
         
        } catch (error: any) {
