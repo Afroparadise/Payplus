@@ -6,6 +6,7 @@ import Trnsucursalcierre from './trnsucursalcierre';
 import Mntsucursalensa from './mntsucursalensa';
 import Mntsucursalfenosa from './mntsucursalfenosa';
 import Trnfacturapuntos from './trnfacturapuntos';
+import Mntcaja from '../caja/mntcaja';
 
 class Mntsucursal extends Model{}
 Mntsucursal.init({
@@ -69,23 +70,39 @@ Mntsucursal.init({
     timestamps:true,
     createdAt:"BitacoraFechaInsercion",
     updatedAt:"BitacoraFechaModifica"
-})
+});
 
-Mntsucursal.hasMany(Trnsucursalcierre,{
-    foreignKey:"SucursalId",
-    sourceKey:"SucursalId"
-})
 
 Mntsucursal.hasMany(Mntsucursalensa,{
     foreignKey:"SucursalId",
     sourceKey:"SucursalId"
-})
+});
+
+Mntsucursalensa.belongsTo(Mntsucursal,{
+    foreignKey:"SucursalId"
+});
 
 Mntsucursal.hasMany(Mntsucursalfenosa,{
     foreignKey:"SucursalId"
-})
+});
+
+Mntsucursalfenosa.belongsTo(Mntsucursal,{
+    foreignKey:"SucursalId"
+});
 
 Mntsucursal.hasMany(Trnfacturapuntos,{
+    foreignKey:"SucursalId"
+});
+
+Trnfacturapuntos.belongsTo(Mntsucursal,{
+    foreignKey:"SucursalId"
+});
+
+Mntsucursal.hasMany(Mntcaja,{
+    foreignKey:"SucursalId"
+})
+
+Mntcaja.belongsTo(Mntsucursal,{
     foreignKey:"SucursalId"
 });
 

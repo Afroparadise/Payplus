@@ -2,7 +2,7 @@ import { DataType, DataTypes, Model } from "sequelize";
 import sequelize from "../../db/connections";
 
 import trncajacierre from "../caja/trncajacierre";
-import MntSucursal from "./mntsucursal";
+import Mntsucursal from "./mntsucursal";
 
 class Trnsucursalcierre extends Model{}
 
@@ -11,11 +11,6 @@ Trnsucursalcierre.init({
         type:DataTypes.INTEGER,
         primaryKey:true,
         allowNull:false
-    },
-    SucursalId: {
-        type:DataTypes.INTEGER,
-        primaryKey:true,
-        allowNull:false,
     },
     SucursalEstado:{
         type:DataTypes.STRING(20),
@@ -51,14 +46,18 @@ Trnsucursalcierre.init({
     },
 },{
     sequelize,
-    modelName:"Mntsucursalxusuario",
+    modelName:"Trnsucursalcierre",
     tableName:"trnsucursalcierre",
     timestamps:false
+});
+
+Mntsucursal.hasMany(Trnsucursalcierre,{
+    foreignKey:"SucursalId",
+    sourceKey:"SucursalId"
 })
 
-Trnsucursalcierre.belongsTo(MntSucursal,{
-    foreignKey:'SucursalId',
-    targetKey:'SucursalId'
+Trnsucursalcierre.belongsTo(Mntsucursal,{
+    foreignKey:'SucursalId'
 });
 
 (async () => {

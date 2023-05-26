@@ -1,7 +1,10 @@
-import { DataTypes } from 'sequelize';
-import db from '../../db/connections';
+import { DataTypes, Model } from 'sequelize';
+import sequelize from '../../db/connections';
 
-export default db.define('segsistemaxtipousuario',{
+class Segsistemaxtipousuario extends Model{}
+
+
+Segsistemaxtipousuario.init({
     TipoUsuario:{
         type:DataTypes.INTEGER,
         allowNull:true,
@@ -11,5 +14,10 @@ export default db.define('segsistemaxtipousuario',{
         allowNull:false
     }
 },{
-    timestamps:false
-})
+    sequelize,
+    modelName:"Segsistemaxtipousuario",
+    timestamps:false,
+    tableName:"segsistemaxtipousuario"
+});
+
+export default Segsistemaxtipousuario;

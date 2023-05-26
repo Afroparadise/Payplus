@@ -1,7 +1,9 @@
-import { DataTypes } from 'sequelize';
-import db from '../../db/connections';
+import { DataTypes, Model } from 'sequelize';
+import sequelize from '../../db/connections';
 
-export default db.define('rtaxusuario',{
+class Rtaxusuario extends Model{}
+
+Rtaxusuario.init({
     RTA_idRTA:{
         type:DataTypes.INTEGER,
         primaryKey:true,
@@ -24,5 +26,10 @@ export default db.define('rtaxusuario',{
         allowNull:false,
     },
 },{
-    timestamps:false
+    sequelize,
+    modelName:'Rtaxusuario',
+    timestamps:false,
+    tableName:'rtaxusuario'
 })
+
+export default Rtaxusuario;

@@ -34,15 +34,11 @@ Trnfacturapuntos.init({
     },
 },{
     sequelize,
-    modelName:"Mntsucursalxusuario",
+    modelName:"Trnfacturapuntos",
     tableName:"trnfacturapuntos",
     timestamps:false,
-})
-
-Trnfacturapuntos.belongsTo(mntsucursal,{
-    foreignKey:"SucursalId",
-    targetKey:"SucursalId",
 });
+
 
 (async () => {
     await sequelize.sync();

@@ -1,7 +1,9 @@
-import { DataTypes } from 'sequelize';
-import db from '../../db/connections';
+import { DataTypes, Model } from 'sequelize';
+import sequelize from '../../db/connections';
 
-const UserPicDetails = db.define('userpicdetails',{
+class Userpicdetails extends Model{}
+
+Userpicdetails.init({
     AutoID:{
         type:DataTypes.INTEGER,
         primaryKey:true,
@@ -19,6 +21,9 @@ const UserPicDetails = db.define('userpicdetails',{
         allowNull:true,
     }
 },{
+    sequelize,
+    modelName:'userpicdetails',
+    tableName:'Userpicdetails',
     timestamps:false
 })
-export default UserPicDetails
+export default Userpicdetails

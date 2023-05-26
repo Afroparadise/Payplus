@@ -1,6 +1,6 @@
 import { DataType, DataTypes, Model } from "sequelize";
 import sequelize from "../../db/connections";
-import mntsucursal from "./mntsucursal";
+import Mntsucursal from "./mntsucursal";
 
 class Mntsucursalensa extends Model{}
 
@@ -26,10 +26,6 @@ Mntsucursalensa.init({
     timestamps:false
 });
 
-Mntsucursalensa.belongsTo(mntsucursal,{
-    foreignKey:"SucursalId",
-    targetKey:"SucursalId"
-});
 
 (async () => {
     await sequelize.sync();

@@ -21,16 +21,8 @@ Mntcaja.init({
     timestamps:true,
     createdAt:"BitacoraFechaInsercion",
     updatedAt:"BitacoraFechaModifica"
-})
+});
 
-Mntcaja.belongsTo(MntSucursal,{
-    foreignKey:"SucursalId",
-    targetKey:"SucursalId"
-});
-Mntcaja.belongsTo(segusuario,{
-    foreignKey:"UsuarioId",
-    targetKey:"UsuarioId"
-});
 
 (async()=>{
     await sequelize.sync();

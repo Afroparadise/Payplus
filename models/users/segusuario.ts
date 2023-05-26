@@ -90,6 +90,11 @@ SegUsuario.hasMany(Mntcaja,{
     foreignKey:'UsuarioId',
 });
 
+Mntcaja.belongsTo(SegUsuario,{
+    foreignKey:"UsuarioId",
+    targetKey:"UsuarioId"
+});
+
 (async () => {
     await sequelize.sync();
 })();

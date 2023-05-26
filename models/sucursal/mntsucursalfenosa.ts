@@ -26,9 +26,6 @@ Mntsucursalfenosa.init({
     timestamps:false
 });
 
-Mntsucursalfenosa.belongsTo(mntsucursal,{
-    foreignKey:"SucursalId"
-});
 
 (async()=>{
     await sequelize.sync();
