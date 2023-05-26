@@ -1,9 +1,11 @@
-import db from "../../db/connections";
-import { DataTypes } from "sequelize";
+import sequelize from "../../db/connections";
+import { DataTypes, Model, Sequelize } from "sequelize";
 import Trnsucursalcierre from "../sucursal/trnsucursalcierre";
 import trncajacierreretiro from "./trncajacierreretiro";
 
-const trncajacierre = db.define("trncajacierre",{
+class Trncajacierre extends Model{}  
+
+Trncajacierre.init({
     SucursalId:{
         type:DataTypes.INTEGER,
         allowNull:false
@@ -53,18 +55,24 @@ const trncajacierre = db.define("trncajacierre",{
     CierreDiferencia:DataTypes.DECIMAL(19,4),
     CierreDescripcion:DataTypes.DECIMAL(19,4),
 },{
+    sequelize,
+    modelName:'Trncajacierre',
     tableName:"trncajacierre",
     timestamps:false
 })
 
-trncajacierre.belongsTo(Trnsucursalcierre,{
+Trncajacierre.belongsTo(Trnsucursalcierre,{
     foreignKey:"SucursalCierreId",
     targetKey:"SucursalCierreId"
 })
 
-trncajacierre.hasMany(trncajacierreretiro,{
+Trncajacierre.hasMany(trncajacierreretiro,{
     foreignKey:"CierreId",
     sourceKey:"CierreId",
+});
+
+(async()=>{
+    await sequelize.sync();
 })
 
-export default trncajacierre;
+export default Trncajacierre;
