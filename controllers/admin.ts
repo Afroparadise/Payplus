@@ -62,8 +62,7 @@ export const login = async (req: Request, res: Response)=>{
     }catch(ex){
         res.status(400).json({
             ok:false,
-            error:ex,
-            message:'Login Fallido'
+            message:ex
         })
     }
 }
